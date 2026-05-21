@@ -101,60 +101,68 @@
           <!-- Right Side - Consultation Form (30%) -->
           <div class="consultation-form">
             <div class="form-card">
-              <h3>📞 Đăng ký tư vấn</h3>
-              <p class="form-subtitle">Để lại thông tin, chúng tôi sẽ liên hệ ngay</p>
+              <h3>Tư vấn mua nhà chuyên sâu</h3>
+              
+              <!-- Benefits List -->
+              <div class="benefits-list">
+                <div class="benefit-item">
+                  <span class="check-icon">✓</span>
+                  <span class="benefit-text">Phân tích quỹ căn, chính sách, tiện ích giúp Khách hàng lựa chọn căn tốt nhất.</span>
+                </div>
+                <div class="benefit-item">
+                  <span class="check-icon">✓</span>
+                  <span class="benefit-text">Giải đáp mọi thắc mắc của khách hàng.</span>
+                </div>
+                <div class="benefit-item">
+                  <span class="check-icon">✓</span>
+                  <span class="benefit-text">Tuyệt đối bảo mật thông tin cá nhân.</span>
+                </div>
+              </div>
               
               <form @submit.prevent="submitConsultation">
                 <div class="form-group">
-                  <label for="name">Họ và tên <span class="required">*</span></label>
                   <input 
                     type="text" 
                     id="name"
                     v-model="consultationForm.name"
-                    placeholder="Nhập họ tên của bạn"
+                    placeholder="Họ và tên *"
                     required
                   >
                 </div>
 
                 <div class="form-group">
-                  <label for="phone">Số điện thoại <span class="required">*</span></label>
                   <input 
                     type="tel" 
                     id="phone"
                     v-model="consultationForm.phone"
-                    placeholder="Nhập số điện thoại"
+                    placeholder="Số điện thoại *"
                     pattern="[0-9]{10}"
                     required
                   >
                 </div>
 
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input 
-                    type="email" 
-                    id="email"
-                    v-model="consultationForm.email"
-                    placeholder="email@example.com"
-                  >
-                </div>
-
-                <div class="form-group">
-                  <label for="note">Ghi chú</label>
-                  <textarea 
-                    id="note"
-                    v-model="consultationForm.note"
-                    placeholder="Nội dung cần tư vấn..."
-                    rows="4"
-                  ></textarea>
-                </div>
-
                 <button type="submit" class="btn-submit" :disabled="isSubmitting">
-                  {{ isSubmitting ? 'Đang gửi...' : 'Gửi thông tin' }}
+                  {{ isSubmitting ? 'Đang gửi...' : 'Nhận tư vấn ngay' }}
                 </button>
               </form>
 
               <div v-if="submitMessage" class="submit-message" :class="submitSuccess ? 'success' : 'error'">
                 {{ submitMessage }}
+              </div>
+
+              <!-- Divider -->
+              <div class="divider"></div>
+
+              <!-- Contact Buttons -->
+              <div class="contact-buttons">
+                <a href="tel:0967777143" class="btn-call">
+                  <span class="icon">📞</span>
+                  <span class="btn-text">Gọi trực tiếp<br><strong>0967777143</strong></span>
+                </a>
+                <a href="https://zalo.me/0967777143" target="_blank" class="btn-zalo">
+                  <span class="icon">💬</span>
+                  <span class="btn-text">Chat qua<br><strong>Zalo</strong></span>
+                </a>
               </div>
             </div>
           </div>

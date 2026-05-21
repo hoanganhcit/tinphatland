@@ -13,42 +13,7 @@
           <p class="hero-subtitle">Hơn 500+ căn hộ cao cấp đang giao dịch</p>
         </div>
       </div>
-    </section>
-
-    <!-- Search Section -->
-    <!-- <section class="search-section">
-      <div class="container">
-        <div class="hero-search">
-          <div class="search-form">
-            <div class="search-item">
-              <input 
-                v-model="searchQuery" 
-                type="text" 
-                placeholder="Nhập từ khóa: Rainbow, Beverly, Origami..."
-              />
-            </div>
-            <div class="search-item">
-              <select v-model="searchType">
-                <option value="">Tất cả loại BĐS</option>
-                <option value="Căn hộ">Căn hộ</option>
-                <option value="Studio">Studio</option>
-                <option value="Duplex">Duplex</option>
-                <option value="Penthouse">Penthouse</option>
-              </select>
-            </div>
-            <div class="search-item">
-              <select v-model="searchCity">
-                <option value="">Tất cả khu vực</option>
-                <option value="Quận 9">Quận 9</option>
-                <option value="Quận 2">Quận 2</option>
-                <option value="Thủ Đức">Thủ Đức</option>
-              </select>
-            </div>
-            <button class="btn-search" @click="handleSearch">Tìm kiếm</button>
-          </div>
-        </div>
-      </div>
-    </section> -->
+    </section> 
 
     <!-- Featured Properties -->
     <section class="featured" id="properties">
@@ -72,32 +37,32 @@
         
         <div class="highlights-grid">
           <div class="highlight-card">
-            <div class="highlight-icon">🏞️</div>
+            <div class="highlight-icon"><i class="fal fa-trees"></i></div>
             <h3>Công viên 36ha</h3>
             <p>Công viên trung tâm rộng 36ha, mang đến không gian xanh mát và thoáng đãng cho cư dân</p>
           </div>
           <div class="highlight-card">
-            <div class="highlight-icon">🏊</div>
+            <div class="highlight-icon"><i class="fal fa-swimming-pool"></i></div>
             <h3>Tiện ích 5 sao</h3>
             <p>Hồ bơi Olympic, gym, yoga, spa, khu vui chơi trẻ em và hơn 100+ tiện ích cao cấp</p>
           </div>
           <div class="highlight-card">
-            <div class="highlight-icon">🏫</div>
+            <div class="highlight-icon"><i class="fal fa-university"></i></div>
             <h3>Giáo dục đẳng cấp</h3>
             <p>Trường học liên cấp quốc tế Vinschool, chương trình giáo dục chuẩn Mỹ</p>
           </div>
           <div class="highlight-card">
-            <div class="highlight-icon">🚇</div>
+            <div class="highlight-icon"><i class="fal fa-subway"></i></div>
             <h3>Kết nối metro</h3>
             <p>5 phút đến ga Metro số 1, di chuyển nhanh chóng đến trung tâm TP.HCM</p>
           </div>
           <div class="highlight-card">
-            <div class="highlight-icon">🏥</div>
+            <div class="highlight-icon"><i class="fal fa-hospital"></i></div>
             <h3>Y tế chất lượng</h3>
             <p>Bệnh viện Vinmec chuẩn quốc tế, chăm sóc sức khỏe toàn diện cho gia đình</p>
           </div>
           <div class="highlight-card">
-            <div class="highlight-icon">🛍️</div>
+            <div class="highlight-icon"><i class="fal fa-shopping-bag"></i></div>
             <h3>Mua sắm giải trí</h3>
             <p>Vincom Mega Mall với hàng trăm thương hiệu nổi tiếng và khu vui chơi hiện đại</p>
           </div>
@@ -218,19 +183,19 @@
       <div class="container">
         <div class="badges-grid">
           <div class="badge-item">
-            <div class="badge-icon">🏆</div>
+            <div class="badge-icon"><i class="fal fa-trophy"></i></div>
             <p>Top 10 Dự án<br>Bất động sản 2026</p>
           </div>
           <div class="badge-item">
-            <div class="badge-icon">✅</div>
+            <div class="badge-icon"><i class="fal fa-check-circle"></i></div>
             <p>Pháp lý<br>Minh bạch</p>
           </div>
           <div class="badge-item">
-            <div class="badge-icon">🛡️</div>
+            <div class="badge-icon"><i class="fal fa-shield-alt"></i></div>
             <p>Bảo mật<br>Thông tin</p>
           </div>
           <div class="badge-item">
-            <div class="badge-icon">⚡</div>
+            <div class="badge-icon"><i class="fal fa-bolt"></i></div>
             <p>Giao dịch<br>Nhanh chóng</p>
           </div>
         </div>
