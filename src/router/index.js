@@ -36,7 +36,25 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    // Nếu có savedPosition (từ nút back/forward), dùng vị trí đó
+    if (savedPosition) {
+      return savedPosition
+    }
+    // Nếu có hash (#section), scroll đến phần tử đó
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth'
+      }
+    }
+    // Mặc định: scroll về top khi chuyển trang
+    return { 
+      top: 0, 
+      behavior: 'smooth' 
+    }
+  }
 })
 
 export default router

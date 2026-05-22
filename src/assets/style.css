@@ -1,5 +1,5 @@
 /* ====================================
-   TÍN PHÁT LAND - MAIN STYLESHEET
+   TÃN PHÃT LAND - MAIN STYLESHEET
    ==================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Mulish:wght@300;400;500;600;700;800&display=swap');
@@ -51,6 +51,10 @@
   --color-overlay-light: rgba(0, 0, 0, 0.4);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -62,13 +66,27 @@ body {
   line-height: 1.6;
   color: #333;
   background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 #app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
+
+/* Main content wrapper to compensate for fixed header */
+.main-content {
+  padding-top: 74px; /* 1rem (16px) padding + ~42px content height + borders */
+  flex: 1;
+  min-height: calc(100vh - 74px);
+  position: relative;
+}
+
+/* Improve touch targets for mobile */
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
@@ -238,6 +256,8 @@ p, span, a, input, textarea, select, button, label {
   transform: translateY(-3px);
   box-shadow: 0 12px 32px rgba(197, 160, 89, 0.6);
 }
+
+/* Mobile-friendly button interactions */
 
 .btn-primary .icon {
   transition: transform 0.3s ease;
@@ -1149,7 +1169,6 @@ p, span, a, input, textarea, select, button, label {
   margin-top: 2rem;
 }
 
-
 .status-badge {
   display: inline-block;
   background: #10b981;
@@ -1271,6 +1290,7 @@ p, span, a, input, textarea, select, button, label {
   grid-template-columns: 1fr 380px;
   gap: 2rem;
   margin-top: 2rem;
+  align-items: start;
 }
 
 .left-content {
@@ -1563,67 +1583,6 @@ p, span, a, input, textarea, select, button, label {
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .content-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .right-sidebar {
-    position: relative;
-    top: 0;
-  }
-
-  .amenities-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .property-title {
-    font-size: 1.4rem;
-  }
-
-  .price-area-summary {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .price-value,
-  .area-value {
-    font-size: 1.3rem;
-  }
-
-  .details-table {
-    font-size: 0.85rem;
-  }
-
-  .details-table td {
-    display: block;
-    width: 100% !important;
-    padding: 0.5rem 0.75rem;
-  }
-
-  .details-table tr {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--color-border-light);
-  }
-
-  .date-selection {
-    flex-wrap: wrap;
-  }
-
-  .date-btn {
-    flex: 0 0 calc(33.333% - 0.35rem);
-  }
-
-  .contact-actions {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* Description Section */
 .description-section {
@@ -1716,8 +1675,7 @@ p, span, a, input, textarea, select, button, label {
 
 /* Consultation Form */
 .consultation-form {
-  position: sticky;
-  top: 5rem;
+  position: relative;
   align-self: flex-start;
 }
 
@@ -1966,175 +1924,101 @@ p, span, a, input, textarea, select, button, label {
 /* ====================================
    6. RESPONSIVE STYLES
    ==================================== */
-@media (max-width: 1024px) {
-  .hero h1 {
-    font-size: 3rem;
-  }
-  
-  .search-form {
-    flex-wrap: wrap;
-  }
-  
-  .search-item {
-    flex: 1 1 45%;
-  }
-  
-  .btn-search {
-    flex: 1 1 100%;
-  }
-  
-  .highlights-grid,
-  .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .area-tabs {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .content-layout {
-    grid-template-columns: 1fr;
-  }
-  
-  .consultation-form {
-    order: -1;
-    position: static;
-    margin-top: 30px;
-  }
-  
-  .contact-buttons {
-    grid-template-columns: 1fr;
-  }
-}
 
-@media (max-width: 768px) {
-  .hero {
-    height: auto;
-    min-height: 600px;
-    padding: 3rem 0;
-  }
-  
-  .hero h1 {
-    font-size: 2.8rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.6rem;
-  }
-  
-  .hero-description {
-    font-size: 1rem;
-  }
-  
-  .hero-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .hero-actions {
-    flex-direction: column;
-  }
-  
-  .btn-primary,
-  .btn-secondary {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .hero-search {
-    padding: 1.5rem;
-  }
-  
-  .search-form {
-    flex-direction: column;
-  }
-  
-  .search-item {
-    width: 100%;
-  }
-  
-  .btn-search {
-    width: 100%;
-  }
-  
-  .search-box {
-    grid-template-columns: 1fr;
-  }
-  
-  .promo-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .section-header h2 {
-    font-size: 1.8rem;
-  }
-  
-  .highlights-grid,
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .highlights-wrapper.collapsed {
-    max-height: 350px;
-  }
-  
-  .highlights-wrapper.collapsed .highlights-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .area-tabs {
-    grid-template-columns: 1fr;
-  }
-  
-  .cta-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .badges-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .properties-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-  }
-  
-  .section-title {
-    font-size: 1.5rem;
-  }
-}
+/* Tablet Styles (769px - 1024px) */
+
+/* Desktop/Tablet Landscape */
+
+/* Mobile Styles */
+
+/* Extra small mobile devices (480px and below) */
 
 /* ====================================
    7. HEADER STYLES
    ==================================== */
 .header {
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
   padding: 1rem 0;    
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 999;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  will-change: transform, box-shadow, padding;
+  transform: translateZ(0); /* Force GPU acceleration */
+  -webkit-transform: translateZ(0);
 }
+
+/* Header khi scroll */
+.header-scrolled {
+  padding: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
 
 .header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .logo h1 {
   color: var(--color-primary);
   font-size: 1.5rem;
+  margin: 0;
 }
 
 .logo a {
   text-decoration: none;
 }
 
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1003;
+  position: relative;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-primary);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Navigation */
 .nav {
   display: flex;
   gap: 2rem;
+  align-items: center;
 }
 
 .nav-link {
@@ -2142,11 +2026,26 @@ p, span, a, input, textarea, select, button, label {
   color: #333;
   font-weight: 500;
   transition: color 0.3s;
+  font-family: 'Mulish', sans-serif;
 }
 
 .nav-link:hover,
 .nav-link.router-link-active {
-  color: #243570;
+  color: var(--color-primary);
+}
+
+.auth-mobile {
+  display: none;
+}
+
+.auth-desktop {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Mobile menu backdrop - hidden on desktop */
+.nav-backdrop {
+  display: none;
 }
 
 .auth {
@@ -2162,6 +2061,7 @@ p, span, a, input, textarea, select, button, label {
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s;
+  font-family: 'Mulish', sans-serif;
 }
 
 .btn-login {
@@ -2175,13 +2075,15 @@ p, span, a, input, textarea, select, button, label {
 }
 
 .btn-register {
-  background-color: #243570;
+  background-color: var(--color-primary);
   color: white;
 }
 
 .btn-register:hover {
-  background-color: #c0392b;
+  background-color: var(--color-primary-dark);
 }
+
+/* Mobile Header Styles */
 
 /* ====================================
    4. FOOTER STYLES
@@ -2203,7 +2105,7 @@ p, span, a, input, textarea, select, button, label {
     font-size: 14px;
 }
 .footer-section h3 {
-  color: #243570;
+  color: #fff;
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
@@ -2238,12 +2140,6 @@ p, span, a, input, textarea, select, button, label {
 }
 
 /* Footer Responsive */
-@media (max-width: 768px) {
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
 
 /* ====================================
    6. PROPERTY LIST STYLES
@@ -2652,44 +2548,6 @@ p, span, a, input, textarea, select, button, label {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .post-property-page {
-    padding: 2rem 0 3rem;
-  }
-
-  .post-header h1 {
-    font-size: 2rem;
-  }
-
-  .form-section {
-    padding: 1.8rem 1.5rem 1.5rem;
-  }
-
-  .section-title {
-    font-size: 1.2rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  .image-preview-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 0.75rem;
-  }
-
-  .form-actions {
-    flex-direction: column;
-    padding: 1.5rem;
-  }
-
-  .btn-submit-modern,
-  .btn-cancel-modern {
-    width: 100%;
-    justify-content: center;
-  }
-}
 
 /* ====================================
    9. SEARCH PAGE STYLES
@@ -2781,18 +2639,6 @@ p, span, a, input, textarea, select, button, label {
 
 .pagination-btn i {
   font-size: 0.8rem;
-}
-
-@media (max-width: 768px) {
-  .pagination {
-    gap: 0.3rem;
-  }
-  
-  .pagination-btn {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.85rem;
-    min-width: 38px;
-  }
 }
 
 /* ====================================
@@ -2959,27 +2805,6 @@ p, span, a, input, textarea, select, button, label {
 }
 
 /* Responsive cho contact buttons */
-@media (max-width: 768px) {
-  .contact-cta .cta-left h2 {
-    font-size: 1.75rem;
-  }
-  
-  .contact-cta .cta-left p {
-    font-size: 1rem;
-  }
-  
-  .cta-buttons {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-  
-  .cta-btn {
-    justify-content: center;
-    width: 100%;
-    padding: 1.25rem 1.5rem;
-  }
-}
 
 .contact-box h3 {
   margin-bottom: 1rem;
@@ -3176,7 +3001,6 @@ p, span, a, input, textarea, select, button, label {
   transition: all 0.3s ease;
 }
 
-
 .form-card-luxury h2 {
   font-size: 1.6rem;
   color: var(--color-text-primary);
@@ -3277,151 +3101,10 @@ p, span, a, input, textarea, select, button, label {
 }
 
 /* Responsive - Luxury Contact */
-@media (max-width: 1024px) {
-  .contact-grid-luxury {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  
-  .hero-content-luxury h1 {
-    font-size: 2.5rem;
-  }
-  
-  .hero-content-luxury p {
-    font-size: 1.05rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .contact-hero-luxury {
-    height: 40vh;
-    min-height: 350px;
-  }
-  
-  .hero-content-luxury h1 {
-    font-size: 2rem;
-  }
-  
-  .hero-content-luxury p {
-    font-size: 0.95rem;
-  }
-  
-  .contact-main-luxury {
-    padding: 2.5rem 0;
-  }
-  
-  .info-card-luxury,
-  .form-card-luxury {
-    padding: 1.5rem 1.25rem;
-  }
-  
-  .info-item-luxury {
-    gap: 1rem;
-    padding: 1.25rem 0;
-  }
-  
-  .info-icon-luxury {
-    width: 42px;
-    height: 42px;
-    font-size: 1.15rem;
-  }
-  
-  .info-text-luxury h4 {
-    font-size: 0.7rem;
-  }
-  
-  .info-text-luxury a {
-    font-size: 0.95rem;
-  }
-  
-  .info-text-luxury p {
-    font-size: 0.85rem;
-  }
-  
-  .form-card-luxury h2 {
-    font-size: 1.4rem;
-  }
-  
-  .form-group-luxury input,
-  .form-group-luxury textarea {
-    padding: 0.75rem 0.95rem;
-    font-size: 0.85rem;
-  }
-  
-  .btn-submit-luxury {
-    padding: 0.8rem 1.25rem;
-    font-size: 0.8rem;
-  }
-}
 
 /* ====================================
    12. RESPONSIVE STYLES
    ==================================== */
-@media (max-width: 1200px) {
-  .methods-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 0.5rem;
-  }
-
-  .header .container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .nav {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-  }
-
-  .search-box {
-    flex-direction: column;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-content {
-    grid-template-columns: 1fr;
-  }
-
-  .property-list {
-    grid-template-columns: 1fr;
-  }
-  
-  .contact-hero h1 {
-    font-size: 2rem;
-  }
-  
-  .contact-hero p {
-    font-size: 1rem;
-  }
-  
-  .methods-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .contact-left,
-  .form-wrapper {
-    padding: 1.5rem;
-  }
-  
-  .map-section {
-    padding: 3rem 0;
-  }
-}
 
 /* ====================================
    13. PROPERTY CARD COMPONENT STYLES
@@ -3443,6 +3126,8 @@ p, span, a, input, textarea, select, button, label {
   transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
+
+/* Better touch interaction for mobile */
 
 .property-card .card-image {
   position: relative;
@@ -3557,24 +3242,6 @@ p, span, a, input, textarea, select, button, label {
 .property-card .spec-divider {
   color: #d1d5db;
   font-size: 12px;
-}
-
-@media (max-width: 768px) {
-  .property-card .card-image {
-    height: 180px;
-  }
-  
-  .property-card .title {
-    font-size: 15px;
-  }
-  
-  .property-card .price {
-    font-size: 18px;
-  }
-  
-  .property-card .price-per-sqm {
-    font-size: 13px;
-  }
 }
 
 /* ====================================
@@ -3839,8 +3506,6 @@ p, span, a, input, textarea, select, button, label {
 .collapse-btn i {
   margin-left: 0.5rem;
 }
-
-
 
 /* Overview Stats Section */
 .overview-stats-section {
@@ -4307,23 +3972,6 @@ p, span, a, input, textarea, select, button, label {
   border: none;
 }
 
-@media (max-width: 768px) {
-  .video-popup-overlay {
-    padding: 1rem;
-  }
-
-  .video-popup-container {
-    max-width: 100%;
-  }
-
-  .video-popup-close {
-    top: -45px;
-    width: 35px;
-    height: 35px;
-    font-size: 1.2rem;
-  }
-}
-
 .amenity-thumbnails {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -4448,7 +4096,7 @@ p, span, a, input, textarea, select, button, label {
 }
 
 .category-box ul li:before {
-  content: "•";
+  content: "â€¢";
   position: absolute;
   left: 0;
   color: var(--color-secondary);
@@ -4500,6 +4148,10 @@ p, span, a, input, textarea, select, button, label {
   font-size: 1.05rem;
   margin-bottom: 2rem;
 }
+
+/* ====================================
+   RESPONSIVE FOR ABOUT PAGE
+   ==================================== */
 
 .developer-achievements {
   display: grid;
@@ -4596,6 +4248,177 @@ p, span, a, input, textarea, select, button, label {
 }
 
 /* Responsive */
+
+/* ====================================
+   RESPONSIVE STYLES
+   All media queries consolidated below
+   ==================================== */
+
+/* Desktop Large (1200px) */
+@media (max-width: 1200px) {
+  .methods-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Tablet Landscape (1024px) */
+@media (max-width: 1024px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .right-sidebar {
+    position: relative;
+    top: 0;
+  }
+
+  .amenities-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.8rem;
+  }
+  
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .highlights-grid,
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .area-tabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .properties-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .search-form {
+    flex-wrap: wrap;
+  }
+  
+  .search-item {
+    flex: 1 1 45%;
+  }
+  
+  .btn-search {
+    flex: 1 1 100%;
+  }
+  
+  .highlights-grid,
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .area-tabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .consultation-form {
+    order: -1;
+    position: static;
+    margin-top: 30px;
+  }
+  
+  .contact-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .property-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contact-grid-luxury {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .hero-content-luxury h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-content-luxury p {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about-hero {
+    height: 55vh;
+    min-height: 450px;
+  }
+  
+  .about-hero-content h1 {
+    font-size: 3.5rem;
+  }
+  
+  .about-hero-content .hero-subtitle {
+    font-size: 1.3rem;
+  }
+  
+  .overview-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .consultation-form {
+    position: static;
+    top: 0;
+    margin-top: 0;
+  }
+  
+  .location-details-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .zones-grid-new {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 1024px) {
   .overview-container {
     grid-template-columns: 1fr;
@@ -4657,6 +4480,935 @@ p, span, a, input, textarea, select, button, label {
   
   .developer-logo img {
     width: 150px;
+  }
+}
+
+/* Tablet Portrait (768px) */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 61px; /* 0.85rem padding + content height for mobile */
+    min-height: calc(100vh - 61px);
+  }
+}
+
+@media (max-width: 768px) {
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px; /* Apple's recommended touch target size */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .property-title {
+    font-size: 1.4rem;
+  }
+
+  .price-area-summary {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .price-value,
+  .area-value {
+    font-size: 1.3rem;
+  }
+
+  .details-table {
+    font-size: 0.85rem;
+  }
+
+  .details-table td {
+    display: block;
+    width: 100% !important;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .details-table tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .date-selection {
+    flex-wrap: wrap;
+  }
+
+  .date-btn {
+    flex: 0 0 calc(50% - 0.35rem);
+    font-size: 0.85rem;
+    padding: 0.65rem 0.5rem;
+  }
+
+  .contact-actions {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .main-image {
+    height: 250px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .thumbnail-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .thumbnail {
+    height: 60px;
+  }
+  
+  .property-header {
+    padding: 1rem;
+  }
+  
+  .property-title {
+    font-size: 1.3rem;
+  }
+  
+  .property-address,
+  .property-code {
+    font-size: 0.85rem;
+  }
+  
+  .lightbox .nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 2rem;
+  }
+  
+  .lightbox .nav-btn.prev {
+    left: 0.5rem;
+  }
+  
+  .lightbox .nav-btn.next {
+    right: 0.5rem;
+  }
+  
+  .close-btn {
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    min-height: 500px;
+    padding: 2rem 0;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.3rem;
+  }
+  
+  .hero-description {
+    font-size: 0.95rem;
+    padding: 0 1rem;
+  }
+  
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .stat-card h3 {
+    font-size: 1.8rem;
+  }
+  
+  .stat-card p {
+    font-size: 0.85rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .hero-search {
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+  
+  .search-form {
+    flex-direction: column;
+  }
+  
+  .search-item {
+    width: 100%;
+  }
+  
+  .search-item input,
+  .search-item select {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+  
+  .btn-search {
+    width: 100%;
+    padding: 0.85rem;
+  }
+  
+  .search-box {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .promo-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .promo-text h3 {
+    font-size: 1.2rem;
+  }
+  
+  .promo-text p {
+    font-size: 0.95rem;
+  }
+  
+  .promo-btn {
+    padding: 0.85rem 2rem;
+    font-size: 0.95rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .section-header p {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .highlights-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .highlights-wrapper.collapsed {
+    max-height: 350px;
+  }
+  
+  .highlights-wrapper.collapsed .highlights-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .highlight-card {
+    padding: 1.5rem;
+  }
+  
+  .highlight-card h3 {
+    font-size: 1.3rem;
+  }
+  
+  .area-tabs {
+    grid-template-columns: 1fr;
+  }
+  
+  .area-tab {
+    padding: 1rem;
+  }
+  
+  .area-icon {
+    font-size: 2rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+  
+  .cta-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .cta-left h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cta-left p {
+    font-size: 1rem;
+  }
+  
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .badge-icon {
+    font-size: 2rem;
+  }
+  
+  .badge-item p {
+    font-size: 0.85rem;
+  }
+  
+  .properties-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    z-index: 1000;
+    padding: 0.85rem 0;
+  }
+  
+  .header-scrolled {
+    padding: 1rem 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  
+  .header-scrolled .logo h1 {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    order: 3;
+  }
+  
+  .logo {
+    order: 1;
+    flex: 1;
+  }
+  
+  .logo h1 {
+    font-size: 1.2rem;
+  }
+  
+  .auth-desktop {
+    display: none;
+  }
+  
+  /* Mobile menu backdrop */
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1001;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+  
+  .nav-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 350px;
+    height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+    padding: 5rem 2rem 2rem;
+    gap: 0;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    z-index: 1002;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav.nav-open {
+    right: 0;
+  }
+  
+  .nav-link {
+    padding: 1rem 0;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.1rem;
+  }
+  
+  .auth-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+  }
+  
+  .auth-mobile .btn-login {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .property-list {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .post-property-page {
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  .post-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .post-header p {
+    font-size: 0.95rem;
+  }
+
+  .form-section {
+    padding: 1.5rem 1.25rem 1.25rem;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+  }
+  
+  .section-title i {
+    font-size: 1.2rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+  }
+  
+  .helper-text {
+    font-size: 0.8rem;
+  }
+
+  .image-preview-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.65rem;
+  }
+  
+  .preview-item {
+    height: 90px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    padding: 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .btn-submit-modern,
+  .btn-cancel-modern {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-page {
+    padding: 1.5rem 0;
+  }
+  
+  .search-page h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-filters {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+  
+  .search-filters input,
+  .search-filters select,
+  .search-filters .btn-search {
+    width: 100%;
+  }
+  
+  .result-count {
+    font-size: 0.9rem;
+  }
+  
+  .pagination {
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+  
+  .pagination-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    min-width: 38px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-cta .cta-left h2 {
+    font-size: 1.75rem;
+  }
+  
+  .contact-cta .cta-left p {
+    font-size: 1rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .cta-btn {
+    justify-content: center;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-hero-luxury {
+    height: 40vh;
+    min-height: 350px;
+  }
+  
+  .hero-content-luxury h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-content-luxury p {
+    font-size: 0.95rem;
+  }
+  
+  .contact-main-luxury {
+    padding: 2.5rem 0;
+  }
+  
+  .info-card-luxury,
+  .form-card-luxury {
+    padding: 1.5rem 1.25rem;
+  }
+  
+  .info-item-luxury {
+    gap: 1rem;
+    padding: 1.25rem 0;
+  }
+  
+  .info-icon-luxury {
+    width: 42px;
+    height: 42px;
+    font-size: 1.15rem;
+  }
+  
+  .info-text-luxury h4 {
+    font-size: 0.7rem;
+  }
+  
+  .info-text-luxury a {
+    font-size: 0.95rem;
+  }
+  
+  .info-text-luxury p {
+    font-size: 0.85rem;
+  }
+  
+  .form-card-luxury h2 {
+    font-size: 1.4rem;
+  }
+  
+  .form-group-luxury input,
+  .form-group-luxury textarea {
+    padding: 0.75rem 0.95rem;
+    font-size: 0.85rem;
+  }
+  
+  .btn-submit-luxury {
+    padding: 0.8rem 1.25rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  /* Header mobile styles now in the Header section above */
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .property-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .contact-hero p {
+    font-size: 1rem;
+  }
+  
+  .methods-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-left,
+  .form-wrapper {
+    padding: 1.5rem;
+  }
+  
+  .map-section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .property-card .card-image {
+    height: 200px;
+  }
+  
+  .property-card .title {
+    font-size: 14px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  
+  .property-card .price {
+    font-size: 17px;
+  }
+  
+  .property-card .price-per-sqm {
+    font-size: 12px;
+  }
+  
+  .property-card .spec-item {
+    font-size: 12px;
+  }
+  
+  .property-card .card-content {
+    padding: 14px;
+    gap: 10px;
+  }
+  
+  .property-card .badge {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-popup-overlay {
+    padding: 1rem;
+  }
+
+  .video-popup-container {
+    max-width: 100%;
+  }
+
+  .video-popup-close {
+    top: -45px;
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page .container {
+    padding: 0 1rem;
+  }
+  
+  .about-hero {
+    height: auto;
+    min-height: 400px;
+    padding: 3rem 0;
+  }
+  
+  .about-hero-content .hero-badge {
+    font-size: 0.8rem;
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-hero-content h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .about-hero-content .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .project-overview-section {
+    padding: 2.5rem 0;
+  }
+  
+  .overview-container {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+  
+  .overview-title {
+    font-size: 1.3rem;
+  }
+  
+  .info-details-box,
+  .highlights-box {
+    padding: 1.5rem;
+  }
+  
+  .info-table {
+    font-size: 0.85rem;
+  }
+  
+  .info-table tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .info-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+  }
+  
+  .highlights-list li {
+    font-size: 0.9rem;
+    padding: 0.75rem 0;
+  }
+  
+  .consultation-form .form-card {
+    padding: 1.5rem;
+  }
+  
+  .consultation-form h3 {
+    font-size: 1.3rem;
+  }
+  
+  .benefit-item {
+    font-size: 0.85rem;
+  }
+  
+  .location-details-grid {
+    gap: 2rem;
+  }
+  
+  .location-list li {
+    font-size: 0.9rem;
+  }
+  
+  .location-map {
+    min-height: 300px;
+  }
+  
+  .location-map img,
+  .location-map iframe {
+    min-height: 300px;
+  }
+  
+  .places-tabs {
+    gap: 0.5rem;
+  }
+  
+  .tab-btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .places-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .place-item {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .place-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+  
+  .place-info strong {
+    font-size: 0.9rem;
+  }
+  
+  .place-info .place-address,
+  .place-info .distance {
+    font-size: 0.8rem;
+  }
+  
+  .zones-section,
+  .amenities-section-new,
+  .developer-section-new {
+    padding: 2.5rem 0;
+  }
+  
+  .zones-grid-new {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .zone-image-new {
+    height: 180px;
+  }
+  
+  .zone-info {
+    padding: 1.5rem;
+  }
+  
+  .zone-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .main-amenity-image {
+    height: 250px;
+    margin-bottom: 1rem;
+  }
+  
+  .amenity-thumbnails {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .thumbnail-item {
+    height: 100px;
+  }
+  
+  .thumbnail-title {
+    font-size: 0.75rem;
+  }
+  
+  .amenities-categories h3 {
+    font-size: 1.5rem;
+  }
+  
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .category-box {
+    padding: 1.5rem;
+  }
+  
+  .category-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .category-box h4 {
+    font-size: 1.1rem;
+  }
+  
+  .category-box ul li {
+    font-size: 0.85rem;
+  }
+  
+  .developer-content-new {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  
+  .developer-logo img {
+    width: 150px;
+  }
+  
+  .developer-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .developer-info p {
+    font-size: 0.95rem;
   }
 }
 
@@ -4838,4 +5590,318 @@ p, span, a, input, textarea, select, button, label {
     justify-content: center;
   }
 }
+
+/* Mobile Small (480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .property-detail {
+    padding: 1.5rem 0;
+  }
+  
+  .main-image {
+    height: 220px;
+  }
+  
+  .thumbnail-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+  }
+  
+  .thumbnail {
+    height: 50px;
+  }
+  
+  .property-title {
+    font-size: 1.15rem;
+  }
+  
+  .property-header {
+    padding: 0.85rem;
+  }
+  
+  .price-area-summary {
+    gap: 0.5rem;
+  }
+  
+  .price-value,
+  .area-value {
+    font-size: 1.2rem;
+  }
+  
+  .price-label,
+  .area-label {
+    font-size: 0.8rem;
+  }
+  
+  .details-table {
+    font-size: 0.8rem;
+  }
+  
+  .section-heading {
+    font-size: 1.1rem;
+  }
+  
+  .lightbox .nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.8rem;
+  }
+  
+  .close-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
+  }
+  
+  .lightbox-counter {
+    font-size: 0.9rem;
+    padding: 0.4rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.6rem;
+    line-height: 1.15;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .hero-description {
+    font-size: 0.9rem;
+  }
+  
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+  }
+  
+  .hero-search {
+    padding: 0.75rem;
+  }
+  
+  .stat-card {
+    padding: 0.85rem;
+  }
+  
+  .stat-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .section-badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 1.2rem;
+  }
+  
+  .highlight-card {
+    padding: 1.25rem;
+  }
+  
+  .highlight-card h3 {
+    font-size: 1.15rem;
+  }
+  
+  .highlight-card p {
+    font-size: 0.9rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.25rem;
+  }
+  
+  .promo-text h3 {
+    font-size: 1.1rem;
+  }
+  
+  .promo-text p {
+    font-size: 0.9rem;
+  }
+  
+  .promo-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .cta-left h2 {
+    font-size: 1.5rem;
+  }
+  
+  .contact-form {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .property-list {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-property-page {
+    padding: 1rem 0 2rem;
+  }
+  
+  .post-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .form-section {
+    padding: 1.25rem 1rem 1rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+    gap: 0.5rem;
+  }
+  
+  .image-preview-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .preview-item {
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-page h1 {
+    font-size: 1.5rem;
+  }
+  
+  .search-filters {
+    padding: 0.85rem;
+  }
+  
+  .search-filters input,
+  .search-filters select {
+    font-size: 0.85rem;
+    padding: 0.65rem;
+  }
+  
+  .pagination-btn {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.8rem;
+    min-width: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content-luxury h1 {
+    font-size: 1.7rem;
+  }
+  
+  .hero-content-luxury p {
+    font-size: 0.85rem;
+  }
+  
+  .info-card-luxury,
+  .form-card-luxury {
+    padding: 1.25rem 1rem;
+  }
+  
+  .form-card-luxury h2 {
+    font-size: 1.25rem;
+  }
+  
+  .info-icon-luxury {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+  
+  .form-group-luxury input,
+  .form-group-luxury textarea {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .about-hero-content .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .about-hero-content .hero-badge {
+    font-size: 0.7rem;
+    padding: 0.4rem 1rem;
+  }
+  
+  .overview-title {
+    font-size: 1.15rem;
+  }
+  
+  .info-details-box,
+  .highlights-box {
+    padding: 1.25rem;
+  }
+  
+  .consultation-form .form-card {
+    padding: 1.25rem;
+  }
+  
+  .consultation-form h3 {
+    font-size: 1.15rem;
+  }
+  
+  .zone-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .developer-info h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-search:active,
+  .btn-login:active,
+  .btn-submit:active {
+    transform: scale(0.98);
+  }
+  
+  button,
+  .btn-primary,
+  .btn-secondary {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .property-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+  
+  .property-card:hover {
+    transform: none;
+  }
+}
+
+/* Other Media Queries */
 
