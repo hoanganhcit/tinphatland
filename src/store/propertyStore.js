@@ -1,210 +1,252 @@
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 
-export const usePropertyStore = defineStore('property', () => {
+export const usePropertyStore = defineStore("property", () => {
   // State
-  const properties = ref([])
-  const loading = ref(false)
-  const error = ref(null)
-  
+  const properties = ref([]);
+  const loading = ref(false);
+  const error = ref(null);
+
   // Getters
-  const totalProperties = computed(() => properties.value.length)
-  const featuredProperties = computed(() => 
-    properties.value.filter(p => p.featured)
-  )
-  
+  const totalProperties = computed(() => properties.value.length);
+  const featuredProperties = computed(() =>
+    properties.value.filter((p) => p.featured),
+  );
+
   // Actions
   async function fetchProperties() {
-    loading.value = true
+    loading.value = true;
     try {
       // Dữ liệu mẫu các căn hộ Vinhome Grand Park
       properties.value = [
         {
           id: 1,
-          title: '2 PN, Tòa S1.05, khu The Rainbow',
-          price: 2800000000,
-          area: 68,
-          direction: 'Đông Nam',
-          pricePerSqm: 41.18,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800',
+          title: "3 PN, Tòa GH6, phân khu Glory Heights",
+          price: 5550000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/GH63PN.jfif",
           featured: true,
-          type: 'Căn hộ',
-          description: 'Căn hộ 2 phòng ngủ tại tòa The Rainbow, Vinhomes Grand Park. View đẹp, thoáng mát, đầy đủ nội thất cao cấp.',
-          bedrooms: 2,
+          type: "Căn hộ",
+          description:
+            "Căn hộ 3 phòng ngủ tại tòa GH6 - Glory Heights, view hồ bơi thoáng mát, nhà trống nhận nhà ngay, hỗ trợ xem nhà 24/7.",
+          bedrooms: 3,
           bathrooms: 2,
-          contactName: 'Anh Minh',
-          contactPhone: '0901234567'
+          floor: 18,
+          grossArea: 90.5,
+          netArea: 81.5,
+          balconyDirection: "Tây Bắc",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Nhà trống",
+          usageStatus: "Nhà trống",
+          zone: "Glory Heights",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 2,
-          title: '3 PN, Tòa Origami 1, khu The Origami',
-          price: 4200000000,
-          area: 89,
-          direction: 'Nam',
-          pricePerSqm: 47.19,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+          title: "3 PN, Tòa GH3, phân khu Glory Heights",
+          price: 4450000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/GH33PN.jfif",
           featured: true,
-          type: 'Căn hộ',
-          description: 'Căn hộ 3 phòng ngủ rộng rãi tại The Origami, view công viên 36ha, nội thất sang trọng, giá tốt.',
+          type: "Căn hộ",
+          description:
+            "Căn hộ 3 phòng ngủ tại Glory Heights, view Vườn Nhật và ngoại khu cực thoáng. Nội thất chủ đầu tư, nhà đẹp dễ decor, pháp lý HĐMB, hỗ trợ xem nhà ngay.",
           bedrooms: 3,
           bathrooms: 2,
-          contactName: 'Chị Lan',
-          contactPhone: '0912345678'
+          floor: 15,
+          grossArea: 91.2,
+          netArea: 82.3,
+          balconyDirection: "Tây Bắc",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Hoàn thiện cơ bản",
+          usageStatus: "Nhà trống",
+          zone: "Glory Heights",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 3,
-          title: 'Studio, Tòa S3.02, khu The Rainbow',
-          price: 1600000000,
-          area: 35,
-          direction: 'Bắc',
-          pricePerSqm: 45.71,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1502672260066-6bc35f0a1d7f?w=800',
-          featured: false,
-          status: 'sold',
-          type: 'Căn hộ',
-          description: 'Căn Studio nhỏ gọn, phù hợp người độc thân hoặc đầu tư cho thuê. Giá hấp dẫn.',
+          title: "1 PN+, Tòa S6.06, phân khu The Origami",
+          price: 2550000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/S6061PN.jpg",
+          featured: true,
+          type: "Căn hộ",
+          description:
+            "Căn hộ 1PN+ tại phân khu The Origami, full nội thất cơ bản, ban công Tây Bắc thoáng mát. Đã có sổ hồng, chủ không vay, hỗ trợ xem nhà hẹn trước.",
           bedrooms: 1,
           bathrooms: 1,
-          contactName: 'Anh Tuấn',
-          contactPhone: '0923456789'
+          floor: 12,
+          grossArea: 52.3,
+          netArea: 47,
+          balconyDirection: "Tây Bắc",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Đầy đủ nội thất",
+          usageStatus: "Chủ đang ở",
+          zone: "The Origami",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 4,
-          title: '2 PN, Tòa BS16, khu The Beverly Solari',
-          price: 3200000000,
-          area: 72,
-          direction: 'Đông',
-          pricePerSqm: 44.44,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1565623006069-c3fe64b86c77?w=800',
+          title: "2 PN, Tòa GH6, phân khu Glory Heights",
+          price: 4300000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/GH6092PN.jfif",
           featured: true,
-          type: 'Căn hộ',
-          description: 'Căn hộ 2PN tại The Beverly, tầng cao view sông đẹp, ban công rộng, nội thất hiện đại.',
+          type: "Căn hộ",
+          description:
+            "Căn hộ 2 phòng ngủ tại tòa GH6 - Glory Heights, view Vincom và quảng trường cực đẹp, ban công Đông Nam thoáng mát. Nhà trống dễ decor, dự kiến nhận nhà tháng 6/2026.",
           bedrooms: 2,
           bathrooms: 2,
-          contactName: 'Chị Hương',
-          contactPhone: '0934567890'
+          floor: 9,
+          grossArea: 65.4,
+          netArea: 59,
+          balconyDirection: "Đông Nam",
+          handoverStatus: "Chưa bàn giao",
+          furnitureStatus: "Nhà trống",
+          usageStatus: "Nhà trống",
+          zone: "Glory Heights",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 5,
-          title: '3 PN, Tòa S2.08, khu The Rainbow',
-          price: 3900000000,
-          area: 85,
-          direction: 'Tây Nam',
-          pricePerSqm: 45.88,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
-          featured: false,
-          status: 'deposited',
-          type: 'Căn hộ',
-          description: 'Căn góc 3 phòng ngủ, ánh sáng tự nhiên tuyệt đẹp, view công viên và hồ bơi.',
-          bedrooms: 3,
+          title: "2 PN, Tòa GH3, phân khu Glory Heights",
+          price: 4400000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/GH3102PN.jfif",
+          featured: true,
+          type: "Căn hộ",
+          description:
+            "Căn hộ tại tòa GH3 - Glory Heights, nhà mới 100%, thiết kế hiện đại, hỗ trợ xem nhà ngay với pass thẻ sẵn có.",
+          bedrooms: 2,
           bathrooms: 2,
-          contactName: 'Anh Đức',
-          contactPhone: '0945678901'
+          floor: 10,
+          grossArea: 65.4,
+          netArea: 59,
+          balconyDirection: "Đông Nam",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Hoàn thiện cơ bản",
+          usageStatus: "Nhà trống",
+          zone: "Glory Heights",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 6,
-          title: 'Penthouse 4 PN, Tòa Origami 3, khu The Origami',
-          price: 8500000000,
-          area: 150,
-          direction: 'Đông - Tây',
-          pricePerSqm: 56.67,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
+          title: "2 PN, Tòa GH3, phân khu Glory Heights",
+          price: 3850000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/GH3082PN.jfif",
           featured: true,
-          type: 'Căn hộ',
-          description: 'Penthouse cao cấp 4PN, sân vườn riêng trên cao, view 360 độ toàn khu đô thị.',
-          bedrooms: 4,
-          bathrooms: 3,
-          contactName: 'Anh Khoa',
-          contactPhone: '0956789012'
+          type: "Căn hộ",
+          description:
+            "Căn hộ tại tòa GH3 - Glory Heights, full nội thất, vào ở ngay. Chủ đang ở, hỗ trợ xem nhà hẹn trước.",
+          bedrooms: 2,
+          bathrooms: 2,
+          floor: 8,
+          grossArea: 65.4,
+          netArea: 59,
+          balconyDirection: "Đông Nam",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Đầy đủ nội thất",
+          usageStatus: "Chủ đang ở",
+          zone: "Glory Heights",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 7,
-          title: '2 PN, Tòa M2, khu The Manhattan',
-          price: 3500000000,
-          area: 75,
-          direction: 'Nam - Tây',
-          pricePerSqm: 46.67,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=800',
-          featured: false,
-          status: 'deposited',
-          type: 'Căn hộ',
-          description: 'Căn hộ mới bàn giao, chưa qua sử dụng, view hồ bơi, tiện ích nội khu đầy đủ.',
+          title: "2 PN, Tòa S8.03, phân khu The Origami",
+          price: 3150000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/S8032PN.jpg",
+          featured: true,
+          type: "Căn hộ",
+          description:
+            "Căn hộ tại tòa S8.03 - The Origami, view hồ bơi thoáng đẹp, đã có sổ, đang cho thuê. Hỗ trợ xem nhà hẹn trước, có hỗ trợ xử lý khoản vay.",
           bedrooms: 2,
           bathrooms: 2,
-          contactName: 'Chị Mai',
-          contactPhone: '0967890123'
+          floor: 14,
+          grossArea: 65.4,
+          netArea: 59,
+          balconyDirection: "Tây Nam",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Hoàn thiện cơ bản",
+          usageStatus: "Đang cho thuê",
+          zone: "The Origami",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 8,
-          title: '1 PN, Tòa S1.03, khu The Rainbow',
-          price: 2100000000,
-          area: 50,
-          direction: 'Tây',
-          pricePerSqm: 42.0,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800',
-          featured: false,
-          status: 'sold',
-          type: 'Căn hộ',
-          description: 'Căn hộ 1 phòng ngủ nhỏ gọn, phù hợp gia đình trẻ, gần trường học và siêu thị.',
+          title: "1 PN+, Tòa BS8, phân khu Beverly Tropical",
+          price: 2680000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/BS81PN.jpg",
+          featured: true,
+          type: "Căn hộ",
+          description:
+            "Căn hộ 1PN+ tại Beverly Tropical, view hồ bơi và sông cực thoáng, nội thất như hình. HĐMB, chủ có vay ngân hàng, hỗ trợ tất toán, xem nhà hẹn trước.",
           bedrooms: 1,
           bathrooms: 1,
-          contactName: 'Anh Hải',
-          contactPhone: '0978901234'
+          floor: 11,
+          grossArea: 52.3,
+          netArea: 47,
+          balconyDirection: "Đông Nam",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Đầy đủ nội thất",
+          usageStatus: "Đang cho thuê",
+          zone: "Beverly Tropical",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
         {
           id: 9,
-          title: '3 PN, Tòa BS20, khu The Beverly Solari',
-          price: 4800000000,
-          area: 95,
-          direction: 'Đông Nam',
-          pricePerSqm: 50.53,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
+          title: "1 PN+, Tòa BS8, phân khu Beverly Tropical",
+          price: 2700000000,
+          location: "Vinhomes Grand Park, TP. Thủ Đức, TP.HCM",
+          image:
+            "/images/BS82PN.jfif",
           featured: true,
-          type: 'Căn hộ',
-          description: 'Căn hộ 3PN rộng rãi, thiết kế thông minh, nội thất cao cấp nhập khẩu, view đẹp.',
-          bedrooms: 3,
-          bathrooms: 2,
-          contactName: 'Chị Phương',
-          contactPhone: '0989012345'
+          type: "Căn hộ",
+          description:
+            "Căn hộ 1PN+ tại Beverly Tropical, HĐMB, đang vay VietinBank 2.1 tỷ, chủ nhờ hỗ trợ tất toán. Giá bao thuế phí, hỗ trợ xem nhà có sẵn pass.",
+          bedrooms: 1,
+          bathrooms: 1,
+          floor: 7,
+          grossArea: 58.8,
+          netArea: 53,
+          balconyDirection: "Đông Bắc",
+          handoverStatus: "Đã bàn giao",
+          furnitureStatus: "Đầy đủ nội thất",
+          usageStatus: "Đang cho thuê",
+          zone: "Beverly Tropical",
+          contactName: "Hoàng Anh",
+          contactPhone: "0967777143",
         },
-        {
-          id: 10,
-          title: 'Duplex 3 PN, Tòa Origami 2, khu The Origami',
-          price: 6200000000,
-          area: 120,
-          direction: 'Bắc - Nam',
-          pricePerSqm: 51.67,
-          location: 'Quận 9, TP.HCM',
-          image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800',
-          featured: true,
-          type: 'Căn hộ',
-          description: 'Căn Duplex 2 tầng độc đáo, 3PN, phòng khách rộng, trần cao tạo cảm giác thoáng đãng.',
-          bedrooms: 3,
-          bathrooms: 3,
-          contactName: 'Anh Long',
-          contactPhone: '0990123456'
-        }
-      ]
+      ];
     } catch (err) {
-      error.value = err.message
+      error.value = err.message;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
   }
-  
+
   function addProperty(property) {
-    properties.value.push(property)
+    properties.value.push(property);
   }
-  
+
   return {
     properties,
     loading,
@@ -212,6 +254,6 @@ export const usePropertyStore = defineStore('property', () => {
     totalProperties,
     featuredProperties,
     fetchProperties,
-    addProperty
-  }
-})
+    addProperty,
+  };
+});

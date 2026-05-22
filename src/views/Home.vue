@@ -35,36 +35,38 @@
           <h2>Tại sao chọn Vinhomes Grand Park?</h2>
         </div>
         
-        <div class="highlights-grid">
-          <div class="highlight-card">
-            <div class="highlight-icon"><i class="fal fa-trees"></i></div>
-            <h3>Công viên 36ha</h3>
-            <p>Công viên trung tâm rộng 36ha, mang đến không gian xanh mát và thoáng đãng cho cư dân</p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon"><i class="fal fa-swimming-pool"></i></div>
-            <h3>Tiện ích 5 sao</h3>
-            <p>Hồ bơi Olympic, gym, yoga, spa, khu vui chơi trẻ em và hơn 100+ tiện ích cao cấp</p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon"><i class="fal fa-university"></i></div>
-            <h3>Giáo dục đẳng cấp</h3>
-            <p>Trường học liên cấp quốc tế Vinschool, chương trình giáo dục chuẩn Mỹ</p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon"><i class="fal fa-subway"></i></div>
-            <h3>Kết nối metro</h3>
-            <p>5 phút đến ga Metro số 1, di chuyển nhanh chóng đến trung tâm TP.HCM</p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon"><i class="fal fa-hospital"></i></div>
-            <h3>Y tế chất lượng</h3>
-            <p>Bệnh viện Vinmec chuẩn quốc tế, chăm sóc sức khỏe toàn diện cho gia đình</p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon"><i class="fal fa-shopping-bag"></i></div>
-            <h3>Mua sắm giải trí</h3>
-            <p>Vincom Mega Mall với hàng trăm thương hiệu nổi tiếng và khu vui chơi hiện đại</p>
+        <div class="highlights-wrapper" :class="{ collapsed: isHighlightsCollapsed }">
+          <div class="highlights-grid">
+            <div class="highlight-card">
+              <div class="highlight-icon"><i class="fal fa-trees"></i></div>
+              <h3>Công viên 36ha</h3>
+              <p>Công viên trung tâm rộng 36ha, mang đến không gian xanh mát và thoáng đãng cho cư dân</p>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon"><i class="fal fa-swimming-pool"></i></div>
+              <h3>Tiện ích 5 sao</h3>
+              <p>Hồ bơi Olympic, gym, yoga, spa, khu vui chơi trẻ em và hơn 100+ tiện ích cao cấp</p>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon"><i class="fal fa-university"></i></div>
+              <h3>Giáo dục đẳng cấp</h3>
+              <p>Trường học liên cấp quốc tế Vinschool, chương trình giáo dục chuẩn Mỹ</p>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon"><i class="fal fa-subway"></i></div>
+              <h3>Kết nối metro</h3>
+              <p>5 phút đến ga Metro số 1, di chuyển nhanh chóng đến trung tâm TP.HCM</p>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon"><i class="fal fa-hospital"></i></div>
+              <h3>Y tế chất lượng</h3>
+              <p>Bệnh viện Vinmec chuẩn quốc tế, chăm sóc sức khỏe toàn diện cho gia đình</p>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon"><i class="fal fa-shopping-bag"></i></div>
+              <h3>Mua sắm giải trí</h3>
+              <p>Vincom Mega Mall với hàng trăm thương hiệu nổi tiếng và khu vui chơi hiện đại</p>
+            </div>
           </div>
         </div>
       </div>
@@ -147,32 +149,16 @@
           <div class="cta-left">
             <h2>Đăng ký nhận tư vấn miễn phí</h2>
             <p>Để lại thông tin, chuyên viên của chúng tôi sẽ liên hệ tư vấn chi tiết về căn hộ phù hợp với nhu cầu của bạn</p>
-            <ul class="cta-benefits">
-              <li>✓ Tư vấn miễn phí 24/7</li>
-              <li>✓ Hỗ trợ vay ngân hàng lãi suất ưu đãi</li>
-              <li>✓ Xem nhà thực tế trực tiếp</li>
-              <li>✓ Chính sách chiết khấu tốt nhất</li>
-            </ul>
           </div>
-          <div class="cta-right">
-            <form @submit.prevent="submitContact" class="contact-form">
-              <div class="form-group">
-                <input type="text" v-model="contactForm.name" placeholder="Họ và tên *" required>
-              </div>
-              <div class="form-group">
-                <input type="tel" v-model="contactForm.phone" placeholder="Số điện thoại *" pattern="[0-9]{10}" required>
-              </div>
-              <div class="form-group">
-                <input type="email" v-model="contactForm.email" placeholder="Email">
-              </div>
-              <div class="form-group">
-                <textarea v-model="contactForm.note" placeholder="Nhu cầu của bạn..." rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn-submit" :disabled="isSubmitting">
-                {{ isSubmitting ? '⏳ Đang gửi...' : '📞 Đăng ký ngay' }}
-              </button>
-              <p class="form-note">Thông tin của bạn sẽ được bảo mật tuyệt đối</p>
-            </form>
+          <div class="cta-buttons">
+            <a href="tel:0967777143" class="cta-btn cta-btn-phone">
+              <i class="fal fa-phone-alt"></i>
+              <span>0967 777 143</span>
+            </a>
+            <a href="https://zalo.me/0967777143" target="_blank" class="cta-btn cta-btn-zalo">
+              <i class="fab fa-zalo"></i>
+              <span>Chat qua Zalo</span>
+            </a>
           </div>
         </div>
       </div>
@@ -221,6 +207,9 @@ const searchCity = ref('')
 
 // Area selection
 const selectedArea = ref('all')
+
+// Highlights collapse state
+const isHighlightsCollapsed = ref(false)
 
 // Contact form
 const contactForm = ref({
@@ -287,6 +276,10 @@ const scrollToProperties = () => {
 const scrollToContact = () => {
   const element = document.getElementById('contact')
   element?.scrollIntoView({ behavior: 'smooth' })
+}
+
+const toggleHighlights = () => {
+  isHighlightsCollapsed.value = !isHighlightsCollapsed.value
 }
 
 const submitContact = async () => {

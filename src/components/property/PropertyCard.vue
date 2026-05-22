@@ -28,11 +28,11 @@
         <span class="spec-divider">•</span>
         <span class="spec-item">
           <i class="fal fa-compass spec-icon"></i>
-          <span class="spec-value">{{ property.direction }}</span>
+          <span class="spec-value">{{ property.balconyDirection }}</span>
         </span>
         <span class="spec-divider">•</span>
         <span class="spec-item">
-          <span class="spec-value">{{ property.area }}m²</span>
+          <span class="spec-value">{{ property.netArea }}m²</span>
         </span>
       </div>
     </div>
