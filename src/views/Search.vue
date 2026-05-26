@@ -15,7 +15,7 @@
           <option value="3PN">3PN</option>
           <option value="3PN+">3PN+</option>
         </select>
-        <select v-model="filters.city">
+        <select v-model="filters.zone">
           <option value="">Tất cả phân khu</option>
           <option value="The Manhattan">The Manhattan</option>
           <option value="The Origami">The Origami</option>
@@ -87,7 +87,7 @@ const itemsPerPage = 6
 const filters = reactive({
   keyword: '',
   type: '',
-  city: '',
+  zone: '',
   priceRange: ''
 })
 
@@ -97,8 +97,9 @@ const results = computed(() => {
   if (filters.keyword) {
     const keyword = filters.keyword.toLowerCase()
     filtered = filtered.filter(p => 
-      p.title.toLowerCase().includes(keyword) || 
-      p.description.toLowerCase().includes(keyword)
+      p.title?.toLowerCase().includes(keyword) || 
+      p.description?.toLowerCase().includes(keyword) ||
+      p.zone?.toLowerCase().includes(keyword)
     )
   }
   
@@ -106,8 +107,8 @@ const results = computed(() => {
     filtered = filtered.filter(p => p.type === filters.type)
   }
   
-  if (filters.city) {
-    filtered = filtered.filter(p => p.location.includes(filters.city))
+  if (filters.zone) {
+    filtered = filtered.filter(p => p.zone === filters.zone)
   }
   
   if (filters.priceRange) {
@@ -119,12 +120,8 @@ const results = computed(() => {
         return price >= 3 && price < 5
       } else if (filters.priceRange === '5-7') {
         return price >= 5 && price < 7
-      } else if (filters.priceRange === '7-10') {
-        return price >= 7 && price < 10
-      } else if (filters.priceRange === '10-15') {
-        return price >= 10 && price < 15
-      } else if (filters.priceRange === '15') {
-        return price >= 15
+      } else if (filters.priceRange === '7') {
+        return price >= 7
       }
       return true
     })

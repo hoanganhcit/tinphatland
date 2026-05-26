@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import { useAuthStore } from '@/store/authStore'
 
 const routes = [
   {
@@ -15,7 +16,8 @@ const routes = [
   {
     path: '/dang-tin',
     name: 'PostProperty',
-    component: () => import('../views/PostProperty.vue')
+    component: () => import('../views/PostProperty.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/tim-kiem',
@@ -31,6 +33,17 @@ const routes = [
     path: '/lien-he',
     name: 'Contact',
     component: () => import('../views/Contact.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue'),
+    meta: { requiresAuth: true }
   }
 ]
 
@@ -54,6 +67,26 @@ const router = createRouter({
       top: 0, 
       behavior: 'smooth' 
     }
+  }
+})
+
+// Navigation guard để bảo vệ các route yêu cầu authentication
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore()
+  
+  // Kiểm tra nếu route yêu cầu authentication
+  if (to.meta.requiresAuth) {
+    // Kiểm tra nếu user đã login
+    if (!authStore.isAuthenticated) {
+      // Chưa login, redirect về trang login
+      next({ name: 'Login', query: { redirect: to.fullPath } })
+    } else {
+      // Đã login, cho phép truy cập
+      next()
+    }
+  } else {
+    // Route không yêu cầu auth, cho phép truy cập
+    next()
   }
 })
 

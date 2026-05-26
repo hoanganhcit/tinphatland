@@ -2,11 +2,19 @@
   <div class="post-property-page">
     <div class="container">
       <div class="post-header">
-        <h1>Đăng Tin Bất Động Sản</h1>
+        <h1>{{ isEditMode ? 'Chỉnh Sửa Tin Đăng' : 'Đăng Tin Bất Động Sản' }}</h1>
         <p>Vinhomes Grand Park - Đô thị đáng sống bậc nhất</p>
       </div>
       
-      <form @submit.prevent="handleSubmit" class="property-form-modern">
+      <!-- Loading indicator -->
+      <div v-if="isLoading" class="loading-container">
+        <div class="loading-content">
+          <i class="fal fa-spinner-third fa-spin"></i>
+          <p>Đang tải thông tin tin đăng...</p>
+        </div>
+      </div>
+      
+      <form v-else @submit.prevent="handleSubmit" class="property-form-modern">
         <!-- Thông tin cơ bản -->
         <div class="form-section">
           <h2 class="section-title">
@@ -196,6 +204,34 @@
               </select>
             </div>
           </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Trạng thái bán hàng <span class="required">*</span></label>
+              <select v-model="form.salesStatus" required class="form-select">
+                <option value="">Chọn trạng thái</option>
+                <option value="Đang bán">Đang bán</option>
+                <option value="Đã cọc">Đã cọc</option>
+                <option value="Đã đặt chỗ">Đã đặt chỗ</option>
+                <option value="Đã bán">Đã bán</option>
+              </select>
+            </div>
+
+            <div class="form-group checkbox-wrapper">
+              <label>Nổi bật</label>
+              <label class="checkbox-label">
+                <input 
+                  v-model="form.featured" 
+                  type="checkbox" 
+                  class="form-checkbox"
+                >
+                <span class="checkbox-text">
+                  Đánh dấu tin nổi bật
+                </span>
+              </label>
+              <small class="helper-text">Tin nổi bật sẽ hiển thị ở trang chủ</small>
+            </div>
+          </div>
         </div>
 
         <!-- Hình ảnh -->
@@ -212,7 +248,7 @@
                 ref="fileInput"
                 type="file" 
                 multiple 
-                accept="image/*" 
+                accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,.jfif" 
                 @change="handleFileUpload"
                 class="file-input"
                 id="imageUpload"
@@ -220,7 +256,7 @@
               <label for="imageUpload" class="upload-label">
                 <i class="fal fa-cloud-upload"></i>
                 <span>Chọn hoặc kéo thả hình ảnh vào đây</span>
-                <small>Tối đa 10 ảnh, mỗi ảnh không quá 5MB (PNG, JPG, JPEG)</small>
+                <small>Tối đa 10 ảnh, mỗi ảnh không quá 5MB</small>
               </label>
             </div>
 
@@ -250,7 +286,7 @@
               placeholder="Nhập mô tả chi tiết về căn hộ, vị trí, tiện ích xung quanh..."
               class="form-textarea"
             ></textarea>
-            <small class="helper-text">{{ form.description.length }} ký tự</small>
+            <small class="helper-text">{{ form.description?.length || 0 }} ký tự</small>
           </div>
         </div>
 
@@ -309,15 +345,21 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { reactive, ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { propertyAPI } from '../services/api'
 
 const router = useRouter()
+const route = useRoute()
 const fileInput = ref(null)
 const isSubmitting = ref(false)
 const submitMessage = ref('')
 const submitSuccess = ref(false)
 const previewImages = ref([])
+const isEditMode = ref(false)
+const editPropertyId = ref(null)
+const isLoading = ref(false)
+const existingImages = ref([])
 
 const form = reactive({
   title: '',
@@ -333,6 +375,8 @@ const form = reactive({
   handoverStatus: '',
   furnitureStatus: '',
   usageStatus: '',
+  salesStatus: 'Đang bán',
+  featured: false,
   description: '',
   contactName: '',
   contactPhone: '',
@@ -350,7 +394,8 @@ const formatPrice = (price) => {
 const handleFileUpload = (event) => {
   const files = Array.from(event.target.files)
   
-  if (files.length + form.images.length > 10) {
+  const totalImages = existingImages.value.length + form.images.length + files.length
+  if (totalImages > 10) {
     alert('Tối đa 10 ảnh!')
     return
   }
@@ -372,12 +417,20 @@ const handleFileUpload = (event) => {
 }
 
 const removeImage = (index) => {
-  form.images.splice(index, 1)
+  // Nếu index nhỏ hưn số ảnh cũ, xóa từ existingImages
+  const existingCount = existingImages.value.length
+  if (index < existingCount) {
+    existingImages.value.splice(index, 1)
+  } else {
+    // Ngược lại xóa từ form.images mới
+    const newImageIndex = index - existingCount
+    form.images.splice(newImageIndex, 1)
+  }
   previewImages.value.splice(index, 1)
 }
 
 const handleSubmit = async () => {
-  if (form.images.length === 0) {
+  if (form.images.length === 0 && existingImages.value.length === 0) {
     alert('Vui lòng tải lên ít nhất 1 hình ảnh!')
     return
   }
@@ -386,21 +439,68 @@ const handleSubmit = async () => {
   submitMessage.value = ''
   
   try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // Tạo FormData để gửi kèm file
+    const formData = new FormData()
     
-    console.log('Property form data:', form)
+    // Thêm tất cả các field vào FormData
+    formData.append('title', form.title)
+    formData.append('project', form.project)
+    formData.append('zone', form.zone)
+    formData.append('type', form.type)
+    formData.append('price', form.price)
+    formData.append('floor', form.floor)
+    formData.append('bedrooms', form.bedrooms)
+    formData.append('grossArea', form.grossArea)
+    formData.append('netArea', form.netArea)
+    formData.append('balconyDirection', form.balconyDirection)
+    formData.append('handoverStatus', form.handoverStatus)
+    formData.append('furnitureStatus', form.furnitureStatus)
+    formData.append('usageStatus', form.usageStatus)
+    formData.append('salesStatus', form.salesStatus)
+    formData.append('featured', form.featured)
+    formData.append('description', form.description)
+    formData.append('contactName', form.contactName)
+    formData.append('contactPhone', form.contactPhone)
+    
+    // Nếu đang edit, gửi danh sách ảnh cũ cần giữ lại
+    if (isEditMode.value && existingImages.value.length > 0) {
+      formData.append('existingImages', JSON.stringify(existingImages.value))
+    }
+    
+    // Thêm tất cả các file ảnh mới
+    form.images.forEach((image) => {
+      formData.append('images', image)
+    })
+    
+    // Gọi API để tạo hoặc update property
+    let response
+    if (isEditMode.value) {
+      response = await propertyAPI.update(editPropertyId.value, formData)
+    } else {
+      response = await propertyAPI.create(formData)
+    }
+    
+    console.log('Property saved:', response)
     
     submitSuccess.value = true
-    submitMessage.value = '✅ Đăng tin thành công! Tin của bạn đang chờ phê duyệt.'
+    submitMessage.value = isEditMode.value 
+      ? '✅ Cập nhật tin thành công!' 
+      : '✅ Đăng tin thành công! Tin của bạn đang chờ phê duyệt.'
     
-    // Redirect after 2 seconds
+    // Redirect sau 2 giây
     setTimeout(() => {
-      router.push('/')
+      router.push('/admin')
     }, 2000)
   } catch (error) {
+    console.error('Error submitting property:', error)
     submitSuccess.value = false
-    submitMessage.value = '❌ Có lỗi xảy ra. Vui lòng thử lại sau.'
+    
+    // Hiển thị lỗi chi tiết từ backend
+    if (error.response?.data?.message) {
+      submitMessage.value = `❌ ${error.response.data.message}`
+    } else {
+      submitMessage.value = '❌ Có lỗi xảy ra. Vui lòng thử lại sau.'
+    }
   } finally {
     isSubmitting.value = false
   }
@@ -408,7 +508,60 @@ const handleSubmit = async () => {
 
 const handleCancel = () => {
   if (confirm('Bạn có chắc muốn hủy? Dữ liệu sẽ không được lưu.')) {
-    router.push('/')
+    router.push(isEditMode.value ? '/admin' : '/')
   }
 }
+
+const loadPropertyData = async (id) => {
+  isLoading.value = true
+  try {
+    const response = await propertyAPI.getById(id)
+    const property = response.data
+    
+    // Fill form với data từ property
+    form.title = property.title
+    form.project = property.project
+    form.zone = property.zone
+    form.type = property.type
+    form.price = property.price
+    form.floor = property.floor
+    form.bedrooms = property.bedrooms
+    form.grossArea = property.grossArea
+    form.netArea = property.netArea
+    form.balconyDirection = property.balconyDirection
+    form.handoverStatus = property.handoverStatus
+    form.furnitureStatus = property.furnitureStatus
+    form.usageStatus = property.usageStatus
+    form.salesStatus = property.salesStatus
+    form.featured = property.featured
+    form.description = property.description
+    form.contactName = property.contactName
+    form.contactPhone = property.contactPhone
+    
+    // Lưu ảnh hiện có
+    existingImages.value = property.images || []
+    
+    // Hiển thị preview ảnh hiện có
+    existingImages.value.forEach(imagePath => {
+      const imageUrl = `http://localhost:3001${imagePath}`
+      previewImages.value.push(imageUrl)
+    })
+  } catch (error) {
+    console.error('Error loading property:', error)
+    alert('❌ Không thể tải thông tin tin đăng')
+    router.push('/admin')
+  } finally {
+    isLoading.value = false
+  }
+}
+
+onMounted(async () => {
+  // Check nếu có query param edit
+  const editId = route.query.edit
+  if (editId) {
+    isEditMode.value = true
+    editPropertyId.value = editId
+    await loadPropertyData(editId)
+  }
+})
 </script>

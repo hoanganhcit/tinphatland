@@ -2,9 +2,12 @@
   <div class="property-card" @click="goToDetail">
     <div class="card-image">
       <img :src="property.image || 'https://via.placeholder.com/300x200'" :alt="property.title">
-      <span v-if="property.featured" class="badge-featured">Đang bán</span>
-      <span v-if="property.status === 'sold'" class="badge-sold">Đang giữ chỗ</span>
-      <span v-if="property.status === 'deposited'" class="badge-deposited">Đang có phiên trả giá</span>
+      <span v-if="property.featured" class="badge-featured">
+        <i class="fas fa-star"></i> Nổi bật
+      </span>
+      <span v-if="property.salesStatus === 'Đã cọc'" class="badge-deposited">Đã cọc</span>
+      <span v-if="property.salesStatus === 'Đã đặt chỗ'" class="badge-reserved">Đã đặt chỗ</span>
+      <span v-if="property.salesStatus === 'Đã bán'" class="badge-sold">Đã bán</span>
     </div>
     
     <div class="card-content">

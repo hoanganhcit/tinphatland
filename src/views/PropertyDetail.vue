@@ -2,14 +2,21 @@
   <div class="property-detail">
     <!-- Loading State -->
     <div v-if="isLoading" class="loading-container">
-      <div class="loading-spinner">⏳ Đang tải...</div>
+      <div class="loading-content">
+        <i class="fal fa-spinner-third fa-spin"></i>
+        <p>Đang tải thông tin căn hộ...</p>
+      </div>
     </div>
 
     <!-- Property Not Found -->
     <div v-else-if="!property" class="not-found">
-      <h2>❌ Không tìm thấy căn hộ</h2>
+      <i class="fal fa-home-lg-alt"></i>
+      <h2>Không tìm thấy căn hộ</h2>
       <p>Căn hộ bạn đang tìm không tồn tại hoặc đã bị xóa.</p>
-      <router-link to="/" class="btn-back">← Về trang chủ</router-link>
+      <router-link to="/" class="btn-back">
+        <i class="fal fa-arrow-left"></i>
+        Về trang chủ
+      </router-link>
     </div>
 
     <!-- Property Content -->
@@ -424,11 +431,11 @@ const loadProperty = async () => {
   // Scroll to top
   window.scrollTo({ top: 0, behavior: "smooth" });
 
-  await propertyStore.fetchProperties();
-  const propertyId = parseInt(route.params.id);
-  const foundProperty = propertyStore.properties.find(
-    (p) => p.id === propertyId,
-  );
+  // Get property ID from route (MongoDB ObjectId string)
+  const propertyId = route.params.id;
+  
+  // Load property from API
+  const foundProperty = await propertyStore.getPropertyById(propertyId);
 
   if (foundProperty) {
     property.value = foundProperty;
@@ -437,6 +444,7 @@ const loadProperty = async () => {
     property.value = null;
     console.error("Property not found:", propertyId);
   }
+  
   isLoading.value = false;
 };
 
